@@ -4,6 +4,23 @@ server:
 spring:
   application:
     name: notification-service
+  
+  # Configuração do Banco H2 (Em memória)
+  datasource:
+    url: jdbc:h2:mem:notificationdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update # Cria a tabela sozinho
+    show-sql: true     # Mostra o SQL no log (bom para aprender)
+  h2:
+    console:
+      enabled: true    # Habilita interface web em /h2-console
+      
+  # Configuração Kafka
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
