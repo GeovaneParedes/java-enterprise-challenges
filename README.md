@@ -9,7 +9,7 @@ Este repositório documenta minha jornada de 30 dias dominando arquitetura corpo
 | **01** | Payment Service (Producer) | Java 21, Spring Boot, Kafka | ✅ Concluído |
 | **02** | Notification Service (Consumer) | Spring Boot, Kafka Listener, Docker | ✅ Concluído |
 | **03** | Persistência Notification | JPA, H2, Repository | ✅ Concluído |
-
+| **04** | Analytics API (Streams) | Java Streams, Records | ✅ Concluído |/' README.md
 ---
 
 ## 🏗️ Arquitetura Atual
