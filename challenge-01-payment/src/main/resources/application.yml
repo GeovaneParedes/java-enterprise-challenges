@@ -1,17 +1,25 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: payment-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/payment_db
-    username: postgres
-    password: postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
   kafka:
     bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-server:
-  port: 8080
+
+# Configuração do Resilience4j
+resilience4j:
+  circuitbreaker:
+    instances:
+      risk-service:
+        registerHealthIndicator: true
+        slidingWindowSize: 5          # Analisa as últimas 5 chamadas
+        minimumNumberOfCalls: 3       # Precisa de pelo menos 3 para decidir
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s   # Fica aberto (falhando rápido) por 5s
+        failureRateThreshold: 50      # Se 50% der erro, abre o bico
+        eventConsumerBufferSize: 10

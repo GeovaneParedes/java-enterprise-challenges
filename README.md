@@ -12,6 +12,7 @@ Este repositório documenta minha jornada de 30 dias dominando arquitetura corpo
 | **04** | Analytics API (Streams) | Java Streams, Records | ✅ Concluído |
 | **05** | Strategy Pattern (Validação) | SOLID, Spring Beans | ✅ Concluído |
 | **06** | Virtual Threads (Risco) | Java 21, Loom | ✅ Concluído |
+| **07** | Circuit Breaker (O disjuntor) | Java 21, Resilience4j | ✅ Concluído |
 
 ---
 
