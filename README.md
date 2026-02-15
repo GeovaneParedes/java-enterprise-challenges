@@ -9,7 +9,10 @@ Este repositório documenta minha jornada de 30 dias dominando arquitetura corpo
 | **01** | Payment Service (Producer) | Java 21, Spring Boot, Kafka | ✅ Concluído |
 | **02** | Notification Service (Consumer) | Spring Boot, Kafka Listener, Docker | ✅ Concluído |
 | **03** | Persistência Notification | JPA, H2, Repository | ✅ Concluído |
-| **04** | Analytics API (Streams) | Java Streams, Records | ✅ Concluído |/' README.md
+| **04** | Analytics API (Streams) | Java Streams, Records | ✅ Concluído |
+| **05** | Strategy Pattern (Validação) | SOLID, Spring Beans | ✅ Concluído |
+| 06 | ... | ... | ⏳ Pendente |
+
 ---
 
 ## 🏗️ Arquitetura Atual
@@ -18,9 +21,11 @@ Este repositório documenta minha jornada de 30 dias dominando arquitetura corpo
 graph LR
     User(Cliente) -- POST /payments --> API[Payment Service]
     API -- Persiste --> DB[(Postgres)]
+    API -- Valida (Strategy) --> API
     API -- Evento: PaymentCreated --> Kafka{Kafka Broker}
     Kafka -- Push --> Consumer[Notification Service]
-    Consumer -- Log/Email --> Action(Dispara Notificação)
+    Consumer -- Salva (JPA) --> H2[(H2 Database)]
+    Consumer -- Agrega (Streams) --> Relatorios[Analytics API]
 ```
 
 ## 🛠️ Tecnologias Utilizadas
@@ -28,49 +33,20 @@ graph LR
 * **Linguagem:** Java 21
 * **Framework:** Spring Boot 3.2.4
 * **Mensageria:** Apache Kafka (Confluent Image)
-* **Banco de Dados:** PostgreSQL 15
+* **Banco de Dados:** PostgreSQL 15 & H2
 * **Infraestrutura:** Docker & Docker Compose
 * **Build:** Maven
 
----
-
 ## ▶️ Como Rodar o Projeto
 
-### Pré-requisitos
-* Docker & Docker Compose
-* Java 21 (ou superior)
-* Maven
-
-### 1. Subir a Infraestrutura (Kafka, Zookeeper, Postgres)
+### 1. Subir a Infraestrutura
 ```bash
 docker compose up -d
 ```
 
-### 2. Rodar o Payment Service (Porta 8080)
+### 2. Rodar os Serviços
 ```bash
 mvn -pl challenge-01-payment spring-boot:run
-```
-
-### 3. Rodar o Notification Service (Porta 8081)
-```bash
 mvn -pl challenge-02-notification spring-boot:run
 ```
-
-### 4. Testar o Fluxo
-Envie uma requisição para o microsserviço de pagamentos:
-
-```bash
-curl -X POST http://localhost:8080/api/v1/payments \
-  -H "Content-Type: text/plain" \
-  -d '{"amount": 1500.00, "currency": "BRL"}'
-```
-
-**Resultado esperado:**
-O *Notification Service* deverá exibir no log:
-> `📧 NOTIFICAÇÃO: Recebi um evento de pagamento! Conteúdo: {"amount": 1500.00, "currency": "BRL"}`
-
----
-
-## 🤝 Contribuição
-Sinta-se à vontade para abrir Issues ou Pull Requests para sugerir melhorias na arquitetura.
 
