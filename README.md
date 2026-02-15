@@ -11,7 +11,7 @@ Este repositório documenta minha jornada de 30 dias dominando arquitetura corpo
 | **03** | Persistência Notification | JPA, H2, Repository | ✅ Concluído |
 | **04** | Analytics API (Streams) | Java Streams, Records | ✅ Concluído |
 | **05** | Strategy Pattern (Validação) | SOLID, Spring Beans | ✅ Concluído |
-| 06 | ... | ... | ⏳ Pendente |
+| **06** | Virtual Threads (Risco) | Java 21, Loom | ✅ Concluído |
 
 ---
 
